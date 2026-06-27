@@ -1,6 +1,6 @@
 # Consistency Models Project
 
-This repository contains two main notebooks about project 8 on Consistency Models (CMs).
+This repository contains two main notebooks about Consistency Models (https://arxiv.org/abs/2303.01469) and Diffusion Posterior Sampling.
 
 The main work is:
 
