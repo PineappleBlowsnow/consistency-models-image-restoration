@@ -1,49 +1,40 @@
-# Consistency Models Project
+# Image Restoration with Consistency Models and Diffusion
 
-This repository contains two main notebooks about Consistency Models (https://arxiv.org/abs/2303.01469) and Diffusion Posterior Sampling.
+**MVA course — Generative Models for Images**
 
-The main work is:
+A collaborative project by **Ying Jin and Ianis Hammani** studying consistency training/distillation and using pretrained generative models for image restoration.
 
-1. make_moons/make_moons/A_Study_of_Consistency_Models_make_moons.ipynb
-2. zero shot photo edit/zero shot photo edit/CM_Inpainting_+_Compare_with_DPS.ipynb
+The work starts with a controlled two-moons example, then compares consistency-model and diffusion-posterior-sampling approaches to inpainting. The image experiments examine restoration quality alongside network evaluations and wall-clock latency.
 
-dps_benchmark.py is the supporting document for second notebook. DPS_Finetuning_Only.ipynb is the file to find good hypermeters for DPS. 
+## What to explore
 
-## Notebook 1
+| Experiment | Question | Source |
+|---|---|---|
+| Consistency training and distillation | How do the two approaches behave on a simple 2D distribution? | [Two-moons notebook](A_Study_of_Consistency_Models_make_moons.ipynb) |
+| Image restoration | How do pretrained consistency models perform on inpainting and colorization? | [Image-restoration notebook](CM_Inpainting_%2B_Compare_with_DPS.ipynb) |
+| CM versus DPS | What quality is obtained at different inference budgets? | [Benchmark implementation](dps_benchmark.py) and [DPS tuning notebook](DPS_Finetuning_Only.ipynb) |
 
-### `A_Study_of_Consistency_Models_make_moons.ipynb`
+The [joint report](report.pdf) contains the original experiment discussion. Authorship is shared; the archived materials do not establish a complete per-person implementation split.
 
-This notebook studies Consistency Models on the two-moons dataset, which is a simple 2D toy dataset.
+## Models, data and evaluation
 
-The notebook:
+- The image notebook uses `openai/diffusers-cd_bedroom256_lpips`, distilled on LSUN Bedroom at 256×256, and the LSUN Bedroom diffusion checkpoint `lsun_bedroom.pt` for DPS.
+- Reference images come from the LSUN Bedroom validation set. Checkpoints and image data must be obtained separately.
+- The experiments consider PSNR, SSIM and LPIPS, together with network function evaluations (NFE) and elapsed inference time.
+- The audited inpainting comparison uses zero measurement noise. The broader noisy-inverse-problem motivation should not be read as proof of a validated noisy benchmark.
 
-- creates and normalizes the two-moons data
-- trains a diffusion teacher model
-- trains a Consistency Model with two methods:
-  - **Consistency Distillation (CD)**
-  - **Consistency Training (CT)**
-- compares generated samples and training behavior
-- evaluates generation quality with plots and metrics
+## Reading and running
 
-This notebook is mainly for understanding how Consistency Models work in a small and controlled setting.
+Start with the report and notebook sections, then inspect the relevant setup cells before running. The notebooks retain their original Colab/Drive setup and external checkpoint paths; adapt these to your own environment. This snapshot does not yet provide a tested environment lock or a single-command reproduction.
 
-## Notebook 2
+The original image notebook and report are large (approximately 90 MB and 70 MB). They are retained with their historical outputs; [the original result folder](https://drive.google.com/drive/folders/1mJg4ZqW1pEvy2PW_9MbU4vLllNnhiVGq?usp=sharing) is an additional reference, not a replacement for the source code.
 
-### `CM_Inpainting_+_Compare_with_DPS.ipynb`
+## References and status
 
-This notebook is mainly about applying a pretrained Consistency Model to image restoration problems without retraining the model. It contains two parts of work: 
+- [Consistency Models](https://arxiv.org/abs/2303.01469)
+- The pretrained consistency and diffusion models, and external DPS implementation, retain their original attribution.
 
-- Evalutate CM's zero shot photo edit performance on two tasks: inpainting and colorization using metrics including PSNR, SSIM, LPIPS. 
-- Compare CM with DPS on inpainting by benchmarking perceptual fidelity (LPIPS) against both computational budget (NFE) and empirical inference latency (wall-clock time).
-
-
-For the experiments, we uses the OpenAI pretrained checkpoint `openai/diffusers-cd_bedroom256_lpips`, which is a Consistency Model distilled on **LSUN Bedroom 256x256**. For DPS, we use the **LSUN Bedroom diffusion prior** checkpoint `lsun_bedroom.pt` 
-In the notebook, this pretrained CM is used as the image prior for **zero-shot image editing**. The notebook loads reference images from the **LSUN Bedroom validation set** and resizes them to **256x256**, which matches the pretrained checkpoint.
+This is a course implementation and experimental study. The portfolio documentation was reorganized on 11 October 2026; training and image benchmarks were not rerun in this update.
 
 
-
-
-
-## Outputs
-
-All outputs are saved in the google drive: https://drive.google.com/drive/folders/1mJg4ZqW1pEvy2PW_9MbU4vLllNnhiVGq?usp=sharing 
+[Back to the MVA project portfolio](https://github.com/PineappleBlowsnow/mva-portfolio)
