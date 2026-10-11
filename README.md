@@ -37,4 +37,4 @@ The original image notebook and report are large (approximately 90 MB and 70 MB)
 This is a course implementation and experimental study. The portfolio documentation was reorganized on 11 October 2026; training and image benchmarks were not rerun in this update.
 
 
-[Back to the MVA project portfolio](https://github.com/PineappleBlowsnow/mva-portfolio)
+[Back to Ying Jin's project directory](https://github.com/PineappleBlowsnow#mva-projects)
